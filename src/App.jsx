@@ -1,9 +1,14 @@
-import React, { lazy } from 'react';
-import classes from './App.module.scss';
+import React from 'react';
+import Keyboard from './Keyboard';
 
 function App(){
+
+    let keyPress = function(newKey){
+        console.log(newKey);
+    }
+
     return (
-        <h1>Hello World!</h1>
+        <Keyboard onKeyPress={keyPress} />
     );
 }
 

@@ -1,0 +1,72 @@
+.hg-theme-default{
+    max-width: 60rem;
+    background: transparent;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--button-font-color);
+    text-transform: uppercase;
+
+    --button-background-color: #dce1ed;
+    --button-font-color: #414a5e;
+    --button-active-background-color: #efefef;
+    --button-active-font-color: var(--button-font-color);
+
+    --color-white: #fff;
+
+    --button-absent-background-color: #a4aec4;
+    --button-absent-font-color: var(--color-white);
+
+    --button-elesewhere-background-color: #f3c237;
+    --button-elsewhere-font-color: var(--color-white);
+
+    --button-correct-background-color: #79b851;
+    --button-correct-font-color: var(--color-white);
+}
+
+.hg-theme-default .hg-button{
+    transition: all .1s ease-in;
+    background-color: var(--button-background-color);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border: none;
+}
+.hg-theme-default .hg-button:hover{
+    transform: translateY(-.2rem) scale(1.08);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px .5rem;
+}
+.hg-theme-default .hg-button:active{
+    transform: translateY(.2rem) scale(.96);
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.hg-theme-default .hg-button.letter-absent{
+    color: var(--button-absent-font-color);
+    background-color: var(--button-absent-background-color);
+}
+.hg-theme-default .hg-button.letter-elsewhere{
+    color: var(--button-elsewhere-font-color);
+    background-color: var(--button-elesewhere-background-color);
+}
+.hg-theme-default .hg-button.letter-correct{
+    color: var(--button-correct-font-color);
+    background-color: var(--button-correct-background-color);
+}
+
+.hg-theme-default .hg-button.letter-absent:active,
+.hg-theme-default .hg-button.letter-elsewhere:active,
+.hg-theme-default .hg-button.letter-correct:active{
+    color: var(--button-font-color);
+    background-color: var(--button-active-background-color);
+}
+
+.hg-theme-default .hg-button.hg-button-enter{
+    background-image: url('./img/enter-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.hg-theme-default .hg-button.hg-button-bksp{
+    background-image: url('./img/backspace-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
