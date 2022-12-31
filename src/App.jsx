@@ -74,7 +74,12 @@ function App(){
         }
 
         else if(newKey === '{bksp}'){
-            //case not handled
+            if(columnNumber > 0)
+            {
+                words[rowNumber].pop();
+                setWords([...words]);
+                setColumnNumber(columnNumber-1);
+            }
             return;
         }
     
