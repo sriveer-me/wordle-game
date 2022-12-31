@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Keyboard from './Keyboard';
 import Word from './Word';
 
-import {getRandomInt} from './helperFunctions';
+import {getRandomInt,getAllIndexes} from './helperFunctions';
 
 import classes from './App.module.scss';
 
@@ -29,14 +29,14 @@ function getWordWithStatus(word){
     })
 
     const intermediate = word.map((letter,index) => {
-        let foundIndex = wordInPlay.findIndex((letterInPlay) => letterInPlay === letter.keyStroke);
-        if(foundIndex === -1){
+        let foundIndexes = getAllIndexes(wordInPlay,letter.keyStroke);
+        if(foundIndexes.length === 0){
             return{
                 keyStroke: letter.keyStroke,
                 status: "absent"
             };
         }
-        else if(foundIndex === index){
+        else if(foundIndexes.findIndex((foundIndex) => foundIndex === index) != -1){
             wordInPlaySet[letter.keyStroke] -= 1;
             return{
                 keyStroke: letter.keyStroke,
@@ -118,6 +118,11 @@ function App(){
 
             //light the keyboard accordingly
             keyboardInformation = [];
+            const classPrecedenceList = {
+                "letter-absent": 1,
+                "letter-elsewhere": 2,
+                "letter-correct": 3
+            };
             for(let i=0;i<rowNumber+1;i++){
                 const wordWithStatus = getWordWithStatus([...words[i]]);
                 wordWithStatus.forEach(letterWithStatus => {
@@ -125,7 +130,10 @@ function App(){
                     for(let j=0;j<keyboardInformation.length;j++){
                         if(keyboardInformation[j].buttons === letterWithStatus.keyStroke){
                             keyboardInformationFound = true;
-                            keyboardInformation[j].class = `letter-${letterWithStatus.status}`
+                            if(classPrecedenceList[keyboardInformation[j].class] < classPrecedenceList[`letter-${letterWithStatus.status}`]){
+                                keyboardInformation[j].class = `letter-${letterWithStatus.status}`  
+                            }
+                            //keyboardInformation[j].class = `letter-${letterWithStatus.status}`
                         }
                     }
                     if(keyboardInformationFound === false){
