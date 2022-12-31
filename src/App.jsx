@@ -17,8 +17,19 @@ function populateWordInPlay()
 }
 
 function getWordWithStatus(word){
-    return word.map((letter,index) => {
-        let foundIndex = wordInPlay.findIndex((letterInPLay) => letterInPLay === letter.keyStroke);
+
+    let wordInPlaySet = {}; 
+    wordInPlay.forEach(function(letterInPlay){
+        if(letterInPlay in wordInPlaySet){
+            wordInPlaySet[letterInPlay] += 1;
+        }
+        else{
+            wordInPlaySet[letterInPlay] = 1;
+        }
+    })
+
+    const intermediate = word.map((letter,index) => {
+        let foundIndex = wordInPlay.findIndex((letterInPlay) => letterInPlay === letter.keyStroke);
         if(foundIndex === -1){
             return{
                 keyStroke: letter.keyStroke,
@@ -26,18 +37,34 @@ function getWordWithStatus(word){
             };
         }
         else if(foundIndex === index){
+            wordInPlaySet[letter.keyStroke] -= 1;
             return{
                 keyStroke: letter.keyStroke,
                 status: "correct"
             }
         }
-        else{
-            return{
-                keyStroke: letter.keyStroke,
+        else {
+            return letter.keyStroke;
+        }
+    });
+
+    return intermediate.map((letter) => {
+        if(typeof letter !== 'string')
+            return letter;
+        if(wordInPlaySet[letter] > 0){
+            wordInPlaySet[letter]-=1;
+            return {
+                keyStroke: letter,
                 status: "elsewhere"
             }
         }
-    });
+        else{
+            return {
+                keyStroke: letter,
+                status: "absent"
+            }
+        }
+    })
 }
 
 function checkIfWordWithCorrectStatus(word){
