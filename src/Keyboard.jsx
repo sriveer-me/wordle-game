@@ -5,6 +5,7 @@ import 'react-simple-keyboard/build/css/index.css';
 import './Keyboard.scss';
 
 //* props.onKeyPress: function(newCharacter: string) - this function is called when a new button is pressed
+//* props.keyboardInformation- pass the button theme via this
 function GameKeyboard(props){
     let keyBoardlayout = {
         'default': [
@@ -18,25 +19,10 @@ function GameKeyboard(props){
         '{bksp}': ' ',
         '{enter}': ' ',
     }
-
-    let buttonTheme = [
-        {    
-            class: "letter-absent",
-            buttons: "b"     
-        },
-        {    
-            class: "letter-elsewhere",
-            buttons: "a"
-        },
-        {
-            class: "letter-correct",
-            buttons: "c"
-        }
-    ]
-
+    
     return(
         <Keyboard
-        buttonTheme={buttonTheme}
+            buttonTheme={props.keyboardInformation}
             display={keyDisplay}
             layout={keyBoardlayout}
             onKeyPress={props.onKeyPress}

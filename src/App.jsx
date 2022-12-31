@@ -54,6 +54,7 @@ function App(){
     let [rowNumber,setRowNumber] = useState(0);
     let [columnNumber,setColumnNumber] = useState(0);
     let [words,setWords] = useState([[],[],[],[],[],[]]);
+    let [keyboardInformation,setkeyboardInformation] = useState([]);
 
     let onKeyPress = function(newKey) {
 
@@ -68,8 +69,7 @@ function App(){
                 console.log('not valid wordle word!');
                 return;
             }
-                
-            
+           
             let wordWithStatus = getWordWithStatus([...words[rowNumber]]);
             words[rowNumber] = wordWithStatus;
             setWords([...words]);
@@ -88,6 +88,28 @@ function App(){
                 setRowNumber(rowNumber + 1);
                 setColumnNumber(0);
             }
+
+            //light the keyboard accordingly
+            keyboardInformation = [];
+            for(let i=0;i<rowNumber+1;i++){
+                const wordWithStatus = getWordWithStatus([...words[i]]);
+                wordWithStatus.forEach(letterWithStatus => {
+                    let keyboardInformationFound = false;
+                    for(let j=0;j<keyboardInformation.length;j++){
+                        if(keyboardInformation[j].buttons === letterWithStatus.keyStroke){
+                            keyboardInformationFound = true;
+                            keyboardInformation[j].class = `letter-${letterWithStatus.status}`
+                        }
+                    }
+                    if(keyboardInformationFound === false){
+                        keyboardInformation.push({
+                            buttons: letterWithStatus.keyStroke,
+                            class: `letter-${letterWithStatus.status}`
+                        });
+                    }
+                });
+            }
+            setkeyboardInformation([...keyboardInformation]);
             
             return;
         }
@@ -124,7 +146,7 @@ function App(){
                 <Word rowNumber={6} word={words[5]}/>
                 {/* <Word rowNumber={5} word={[{keyStroke: 'a', status: 'elsewhere'}]}/> */}
             </div>
-            <Keyboard onKeyPress={onKeyPress} />
+            <Keyboard onKeyPress={onKeyPress} keyboardInformation={keyboardInformation} />
         </>
     );
 }
