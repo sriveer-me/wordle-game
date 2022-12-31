@@ -4,9 +4,6 @@ import './Word.scss';
 //props.word
 //props.rowNumber: number - used for creating keys
 function Word(props){
-
-    console.log(props.word)
-
     let wordLetters = [];
     for(let i=0;i<5;i++) {
 
@@ -52,11 +49,6 @@ function Word(props){
     return(
         <div className='word'>
             {wordLetters}
-            {/* <div className="word-letter word-letter-1 letter-absent">f</div>
-            <div className="word-letter word-letter-2 letter-elsewhere">o</div>
-            <div className="word-letter word-letter-3 letter-correct">u</div>
-            <div className="word-letter word-letter-4">n</div>
-            <div className="word-letter word-letter-5">d</div> */}
         </div>
     );
 }
