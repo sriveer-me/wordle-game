@@ -2,9 +2,19 @@ import React, { useState } from 'react';
 import Keyboard from './Keyboard';
 import Word from './Word';
 
+import {getRandomInt} from './helperFunctions';
+
 import classes from './App.module.scss';
 
-let wordInPlay = ["f","o","u","n","d"];
+import ValidWordleWords from './valid-wordle-words';
+let wordInPlay;
+populateWordInPlay();
+
+function populateWordInPlay()
+{
+    wordInPlay = ValidWordleWords[getRandomInt(ValidWordleWords.length)].split("");
+    console.log(wordInPlay);
+}
 
 function getWordWithStatus(word){
     return word.map((letter,index) => {
@@ -32,7 +42,7 @@ function getWordWithStatus(word){
 
 function checkIfWordWithCorrectStatus(word){
     for(let i=0;i<word.length;i++){
-        if("status" in word[i] && word[i].status != "correct"){
+        if("status" in word[i] && word[i].status !== "correct"){
             return false;
         }
     }
@@ -48,8 +58,17 @@ function App(){
     let onKeyPress = function(newKey) {
 
         if(newKey === '{enter}') {
-            if(words[rowNumber].length != 5)
+            //return if provided word is not 5 letters long
+            if(words[rowNumber].length !== 5)
                 return;
+
+            //return if this is not a valid wordle word
+            const rowWord = words[rowNumber].map((letter)=> letter.keyStroke).join("");
+            if(ValidWordleWords.findIndex((wordleWord) => wordleWord === rowWord) === -1){
+                console.log('not valid wordle word!');
+                return;
+            }
+                
             
             let wordWithStatus = getWordWithStatus([...words[rowNumber]]);
             words[rowNumber] = wordWithStatus;
