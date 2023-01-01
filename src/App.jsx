@@ -16,6 +16,13 @@ function populateWordInPlay()
     console.log(wordInPlay);
 }
 
+function wordHasStatus(word){
+    let letter = word[0];
+    if("status" in letter)
+        return true;
+    else return false;
+}
+
 function getWordWithStatus(word){
 
     let wordInPlaySet = {}; 
@@ -36,7 +43,7 @@ function getWordWithStatus(word){
                 status: "absent"
             };
         }
-        else if(foundIndexes.findIndex((foundIndex) => foundIndex === index) != -1){
+        else if(foundIndexes.findIndex((foundIndex) => foundIndex === index) !== -1){
             wordInPlaySet[letter.keyStroke] -= 1;
             return{
                 keyStroke: letter.keyStroke,
@@ -133,7 +140,6 @@ function App(){
                             if(classPrecedenceList[keyboardInformation[j].class] < classPrecedenceList[`letter-${letterWithStatus.status}`]){
                                 keyboardInformation[j].class = `letter-${letterWithStatus.status}`  
                             }
-                            //keyboardInformation[j].class = `letter-${letterWithStatus.status}`
                         }
                     }
                     if(keyboardInformationFound === false){
@@ -170,16 +176,30 @@ function App(){
         setColumnNumber(columnNumber+1);
     }
 
+    let onClearMessage = function(rowIndex,columnIndex){
+
+        if(wordHasStatus(words[rowIndex]))
+            return;
+
+        for(let i=4;i>=columnIndex;i--){
+            words[rowIndex][columnIndex] = undefined;
+            words[rowIndex].length = i+1;
+        }
+        setWords([...words]);
+        setColumnNumber(columnIndex);
+    }
+
+    let wordRows = [];
+    for(let i=0;i<6;i++){
+        wordRows.push(
+            <Word rowNumber={i+1} word={words[i]} onClearMessage={onClearMessage} key={i+"word-row-in-app"}/>
+        );
+    }
+
     return (
         <>
             <div className={classes.center}>
-                <Word rowNumber={1} word={words[0]}/>
-                <Word rowNumber={2} word={words[1]}/>
-                <Word rowNumber={3} word={words[2]}/>
-                <Word rowNumber={4} word={words[3]}/>
-                <Word rowNumber={5} word={words[4]}/>
-                <Word rowNumber={6} word={words[5]}/>
-                {/* <Word rowNumber={5} word={[{keyStroke: 'a', status: 'elsewhere'}]}/> */}
+                {wordRows}
             </div>
             <Keyboard onKeyPress={onKeyPress} keyboardInformation={keyboardInformation} />
         </>

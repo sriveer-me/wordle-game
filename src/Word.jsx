@@ -3,6 +3,7 @@ import './Word.scss';
 
 //props.word
 //props.rowNumber: number - used for creating keys
+//props.onClearMessage: function(rowIndex,columnIndex) - this function is called when user wants to clear multiple characters
 function Word(props){
     let wordLetters = [];
     for(let i=0;i<5;i++) {
@@ -34,11 +35,12 @@ function Word(props){
                 }
             }
         }
-
+        
         wordLetters.push(
             <div 
             className={letterClassName}
             key={`row-${props.row}-word-letter-${i}`}
+            onClick={() => {props.onClearMessage(props.rowNumber-1,i)}}
             >
                 {letterString}
             </div>
