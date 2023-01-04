@@ -118,12 +118,12 @@ function GameObject(props){
     }
 
     return (
-        <>
+        <div>
             <div>
                 {wordRows}
             </div>
             <Keyboard onKeyPress={onKeyPress} keyboardInformation={keyboardInformation} />
-        </>
+        </div>
     );
 }
 

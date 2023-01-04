@@ -1,0 +1,30 @@
+.footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: black;
+    color: white;
+
+    padding: var(--header-or-footer-padding-top) var(--header-or-footer-padding-side);
+}
+
+.footer h2,
+.footer a{
+    font-size: 1.6rem;
+    font-weight: 400;
+
+    text-transform: capitalize;
+    max-width: 25ch;
+    text-align: center;
+}
+
+.footer a{
+    transition: all .2s;
+    color: white;
+    text-decoration: none;
+}
+
+.footer a:hover{
+    text-decoration: underline;
+}

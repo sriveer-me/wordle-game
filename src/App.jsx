@@ -1,9 +1,15 @@
 import React from 'react';
 import GameObject from './GameObject';
+import Header from './Header';
+import Footer from './Footer';
 
 function App(){
     return(
-        <GameObject />
+        <>
+            <Header />
+            <GameObject />
+            <Footer />
+        </>
     );
 }
 

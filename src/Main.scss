@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+:root{
+    --header-or-footer-padding-top: 1.5rem;
+    --header-or-footer-padding-side: 2rem;
+}
+
 html{
     font-size: 62.5%;
 }
@@ -17,4 +22,12 @@ body{
 img{
     display: block;
     max-width: 100%;
+}
+
+#root{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    min-height: 100vh;
 }
