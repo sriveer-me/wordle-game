@@ -1,20 +1,24 @@
 .header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     background-color: black;
     color: #fff;
 
-    padding: var(--header-or-footer-padding-top) var(--header-or-footer-padding-side);
     margin-bottom: 2rem;
 }
 
-.header h1{
+.header-internal{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: var(--header-or-footer-padding-top) var(--header-or-footer-padding-side);
+}
+
+.header-internal h1{
     font-size: 4.8rem;
     font-weight: 700;
 }
 
-.header h3{
+.header-internal h3{
     text-transform: capitalize;
     font-size: 1.8rem;
     font-weight: 300;

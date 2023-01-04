@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import Keyboard from './Keyboard';
 import Word from './Word';
 
+import classes from './GameObject.module.scss';
+
 import ValidWordleWords from './valid-wordle-words';
 import {getWordWithStatus,wordHasStatus,checkIfWordWithCorrectStatus} from './word-helper-methods';
 
@@ -52,7 +54,7 @@ function GameObject(props){
                 "letter-correct": 3
             };
             for(let i=0;i<rowNumber+1;i++){
-                const wordWithStatus = getWordWithStatus([...words[i]]);
+                const wordWithStatus = getWordWithStatus([...words[i]]); //eslint-disable-next-line
                 wordWithStatus.forEach(letterWithStatus => {
                     let keyboardInformationFound = false;
                     for(let j=0;j<keyboardInformation.length;j++){
@@ -118,8 +120,8 @@ function GameObject(props){
     }
 
     return (
-        <div>
-            <div>
+        <div className={classes['game-object']}>
+            <div className={classes['word-rows']}>
                 {wordRows}
             </div>
             <Keyboard onKeyPress={onKeyPress} keyboardInformation={keyboardInformation} />
