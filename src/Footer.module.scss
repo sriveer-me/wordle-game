@@ -30,3 +30,8 @@
 .footer-internal a:hover{
     text-decoration: underline;
 }
+
+.footer-internal .links{
+    display: flex;
+    column-gap: 2rem;
+}
