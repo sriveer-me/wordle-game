@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Keyboard from './Keyboard';
 import Word from './Word';
+import GamePrompt from './GamePrompt';
 
 import classes from './GameObject.module.scss';
 
@@ -121,6 +122,7 @@ function GameObject(props){
 
     return (
         <div className={classes['game-object']}>
+            <GamePrompt prompt="start by choosing a letter" showPrompt={false}/>
             <div className={classes['word-rows']}>
                 {wordRows}
             </div>
