@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React from 'react';
 import Classes from './GamePrompt.module.scss';
 
 // prompt: string - this is the prompt that will be displayed to the user
@@ -16,8 +16,8 @@ export default function GamePrompt({
     let promptWrapperProps;
     if(showPrompt === false) {
         promptJSX = [
-            <h1 className={Classes['h1']}>Score: {score}</h1>, 
-            <h1 className={Classes['h1']}>Time: {time}</h1>
+            <h1 className={Classes['h1']} key='game-prompt-score'>Score: {score}</h1>, 
+            <h1 className={Classes['h1']} key='game-prompt-time'>Time: <span className={`${Classes['min-width-08']} ${Classes['inline-block']}`}>{time}</span></h1>
         ]
         promptWrapperProps = {
             className: `${Classes['prompt-wrapper']} width-constrainer ${Classes['min-width-keyboard']}`

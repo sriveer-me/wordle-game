@@ -7,12 +7,19 @@ import classes from './GameObject.module.scss';
 
 import ValidWordleWords from './valid-wordle-words';
 import {getWordWithStatus,wordHasStatus,checkIfWordWithCorrectStatus} from './word-helper-methods';
+import stopwatch from './Stopwatch';
 
 function GameObject(props){
     let [rowNumber,setRowNumber] = useState(0);
     let [columnNumber,setColumnNumber] = useState(0);
     let [words,setWords] = useState([[],[],[],[],[],[]]);
     let [keyboardInformation,setkeyboardInformation] = useState([]);
+    let [elapsedTime,setElapsedtime] = useState('00:00'); 
+
+    stopwatch.start();
+    stopwatch.callback = (duration) => {
+        setElapsedtime(duration);
+    };
 
     let onKeyPress = function(newKey) {
 
@@ -122,7 +129,7 @@ function GameObject(props){
 
     return (
         <div className={classes['game-object']}>
-            <GamePrompt prompt="start by choosing a letter" showPrompt={false}/>
+            <GamePrompt prompt="start by choosing a letter" showPrompt={false} time={elapsedTime}/>
             <div className={classes['word-rows']}>
                 {wordRows}
             </div>
