@@ -10,16 +10,16 @@ import {getWordWithStatus,wordHasStatus,checkIfWordWithCorrectStatus} from './wo
 import stopwatch from './Stopwatch';
 
 function GameObject(props){
-    let [rowNumber,setRowNumber] = useState(0);
-    let [columnNumber,setColumnNumber] = useState(0);
-    let [words,setWords] = useState([[],[],[],[],[],[]]);
-    let [keyboardInformation,setkeyboardInformation] = useState([]);
-    let [elapsedTime,setElapsedtime] = useState('00:00'); 
+    const [rowNumber,setRowNumber] = useState(0);
+    const [columnNumber,setColumnNumber] = useState(0);
+    const [words,setWords] = useState([[],[],[],[],[],[]]);
+    const [keyboardInformation,setkeyboardInformation] = useState([]);
+    const [elapsedTime,setElapsedtime] = useState('00:00'); 
+    const [score,setScore] = useState(0);
+    const [showPrompt,setShowPrompt] = useState(true);
+    const [prompt,setPrompt] = useState("start by choosing a letter");
 
-    stopwatch.start();
-    stopwatch.callback = (duration) => {
-        setElapsedtime(duration);
-    };
+    let gameOverState = false;
 
     let onKeyPress = function(newKey) {
 
@@ -41,14 +41,21 @@ function GameObject(props){
 
             const iWin = checkIfWordWithCorrectStatus(wordWithStatus);
             if(iWin){
-                console.log('i win!')
+                //I win
+                stopwatch.stop();
+                setShowPrompt(true);
+                setPrompt(`you win with a final score of ${2000} which places you 10th on the leaderboard`);
+                gameOverState = true;
             }
 
             if(rowNumber === 5){
                 if(!iWin){
-                    console.log('i lost!')
+                    stopwatch.stop();
+                    setShowPrompt(true);
+                    setPrompt(`game over, out of turns`);
+                    gameOverState = true;
                 }
-            } 
+            }
             else{
                 setRowNumber(rowNumber + 1);
                 setColumnNumber(0);
@@ -105,6 +112,16 @@ function GameObject(props){
         
         setWords([...words]);
         setColumnNumber(columnNumber+1);
+
+        if(!stopwatch.isTicking() && gameOverState === false && newKey !== '{bksp}' && newKey !== '{enter}') {
+            stopwatch.start();
+            setShowPrompt(false);
+            stopwatch.callback = (duration) => {
+                setElapsedtime(duration);
+            };
+
+            //calculate score here in the future!
+        }
     }
 
     let onClearMessage = function(rowIndex,columnIndex){
@@ -129,7 +146,7 @@ function GameObject(props){
 
     return (
         <div className={classes['game-object']}>
-            <GamePrompt prompt="start by choosing a letter" showPrompt={false} time={elapsedTime}/>
+            <GamePrompt prompt={prompt} showPrompt={showPrompt} time={elapsedTime} score={score}/>
             <div className={classes['word-rows']}>
                 {wordRows}
             </div>

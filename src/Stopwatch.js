@@ -16,6 +16,10 @@ class Stopwatch {
         this.callback = callback;
     }
 
+    isTicking() {
+        return this.m_started;
+    }
+
     start() {
         if(this.m_started === false)
         {
