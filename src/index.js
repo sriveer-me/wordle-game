@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM  from 'react-dom/client'
+import 'animate.css';
 import './Main.scss';
 
 import App from './App.jsx';

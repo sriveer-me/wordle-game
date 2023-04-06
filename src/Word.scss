@@ -23,6 +23,11 @@
     border-color: #a4aec4;
     color: #fff;
 }
+
+.word-letter.letter-error{
+    border-color: #e85837;
+}
+
 .word-letter.letter-elsewhere{
     background-color: #f3c237;
     border-color: #f3c237;
@@ -32,4 +37,10 @@
     background-color: #79b851;
     border-color: #79b851;
     color: #fff;
+}
+
+.word{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }

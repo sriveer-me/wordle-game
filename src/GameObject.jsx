@@ -13,11 +13,12 @@ function GameObject(props){
     const [rowNumber,setRowNumber] = useState(0);
     const [columnNumber,setColumnNumber] = useState(0);
     const [words,setWords] = useState([[],[],[],[],[],[]]);
-    const [keyboardInformation,setkeyboardInformation] = useState([]);
+    let [keyboardInformation,setkeyboardInformation] = useState([]);
     const [elapsedTime,setElapsedtime] = useState('00:00'); 
     const [score,setScore] = useState(0);
     const [showPrompt,setShowPrompt] = useState(true);
     const [prompt,setPrompt] = useState("start by choosing a letter");
+    const [wordInError,setWordInError] = useState(false);
 
     let gameOverState = false;
 
@@ -31,9 +32,11 @@ function GameObject(props){
             //return if this is not a valid wordle word
             const rowWord = words[rowNumber].map((letter)=> letter.keyStroke).join("");
             if(ValidWordleWords.findIndex((wordleWord) => wordleWord === rowWord) === -1){
-                console.log('not valid wordle word!');
+                //not valid wordle word!
+                setWordInError(true);
                 return;
             }
+            else setWordInError(false);
            
             let wordWithStatus = getWordWithStatus([...words[rowNumber]]);
             words[rowNumber] = wordWithStatus;
@@ -140,7 +143,13 @@ function GameObject(props){
     let wordRows = [];
     for(let i=0;i<6;i++){
         wordRows.push(
-            <Word rowNumber={i+1} word={words[i]} onClearMessage={onClearMessage} key={i+"word-row-in-app"}/>
+            <Word 
+                rowNumber={i+1} 
+                word={words[i]} 
+                onClearMessage={onClearMessage} 
+                key={i+"word-row-in-app"}
+                wordInError={wordInError?i===rowNumber?true:false:false}
+            />
         );
     }
 
